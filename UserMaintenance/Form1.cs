@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,8 +19,8 @@ namespace UserMaintenance
         {
             InitializeComponent();
             lblFullName.Text = Resource1.FullName; // label1
-            lblFirstName.Text = Resource1.FullName; // label2
             btnAdd.Text = Resource1.Add; // button1
+            btnFileWrite.Text = Resource1.FileWrite;
 
             listUsers.DataSource = users;
             listUsers.ValueMember = "ID";
@@ -33,6 +34,24 @@ namespace UserMaintenance
                 FullName = txtFullName.Text,
             };
             users.Add(u);
+        }
+
+        private void btnFileWrite_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.FileName = "NevLista.txt";
+            saveFile.InitialDirectory = Application.StartupPath;
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter streamWriter = new StreamWriter(saveFile.OpenFile());
+                for (int i = 0; i < listUsers.Items.Count; i++)
+                {
+                    streamWriter.WriteLine(users[i].ID + " - " + users[i].FullName);
+                }
+
+                streamWriter.Dispose();
+                streamWriter.Close();
+            }
         }
     }
 }
