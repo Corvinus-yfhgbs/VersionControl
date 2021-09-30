@@ -53,5 +53,10 @@ namespace UserMaintenance
                 streamWriter.Close();
             }
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            users.Remove((User)listUsers.SelectedItem);
+        }
     }
 }
