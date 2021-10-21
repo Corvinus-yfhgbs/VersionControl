@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.Entity;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace Részvények
         PortfolioEntities context = new PortfolioEntities();
         List<Tick> Ticks;
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
-
+        List<decimal> Nyereségek = new List<decimal>();
         public Form1()
         {
             InitializeComponent();
@@ -36,7 +37,6 @@ namespace Részvények
 
             dataGridView2.DataSource = Portfolio;
 
-            List<decimal> Nyereségek = new List<decimal>();
             int intervalum = 30;
             DateTime kezdőDátum = (from x in Ticks select x.TradingDay).Min();
             DateTime záróDátum = new DateTime(2016, 12, 30);
@@ -69,6 +69,25 @@ namespace Részvények
                 value += (decimal)last.Price * item.Volume;
             }
             return value;
+        }
+
+        private void btn_mentes_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.FileName = "Részvények.txt";
+            saveFile.InitialDirectory = Application.StartupPath;
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter streamWriter = new StreamWriter(saveFile.OpenFile());
+                streamWriter.WriteLine("Időszak" + "\t" + "Nyereség");
+                for (int i = 0; i < Nyereségek.Count; i++)
+                {
+                    streamWriter.WriteLine( i+1 + "\t\t" + Nyereségek[i]);
+                }
+
+                streamWriter.Dispose();
+                streamWriter.Close();
+            }
         }
     }
 }

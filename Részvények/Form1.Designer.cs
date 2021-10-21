@@ -31,6 +31,7 @@ namespace Részvények
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.btn_mentes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -51,11 +52,22 @@ namespace Részvények
             this.dataGridView2.Size = new System.Drawing.Size(450, 208);
             this.dataGridView2.TabIndex = 1;
             // 
+            // btn_mentes
+            // 
+            this.btn_mentes.Location = new System.Drawing.Point(488, 98);
+            this.btn_mentes.Name = "btn_mentes";
+            this.btn_mentes.Size = new System.Drawing.Size(99, 40);
+            this.btn_mentes.TabIndex = 2;
+            this.btn_mentes.Text = "Mentés";
+            this.btn_mentes.UseVisualStyleBackColor = true;
+            this.btn_mentes.Click += new System.EventHandler(this.btn_mentes_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btn_mentes);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
@@ -70,6 +82,7 @@ namespace Részvények
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Button btn_mentes;
     }
 }
 
