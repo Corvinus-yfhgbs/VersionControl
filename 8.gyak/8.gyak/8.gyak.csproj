@@ -46,12 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\IToyFactory.cs" />
     <Compile Include="Abstractions\Toy.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Entities\Ball.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Entities\CarFactory.cs" />
     <Compile Include="Entities\BallFactory.cs" />
     <Compile Include="Entities\Car.cs">
       <SubType>Component</SubType>
