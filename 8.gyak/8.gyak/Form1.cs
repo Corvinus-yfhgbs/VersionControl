@@ -1,4 +1,5 @@
 ﻿using _8.gyak.Entities;
+using _8.gyak.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
