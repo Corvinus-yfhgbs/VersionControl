@@ -33,7 +33,7 @@ namespace _8.gyak
         public Form1()
         {
             InitializeComponent();
-            Factory = new BallFactory() { BallColor = button3.BackColor };
+            Factory = new BallFactory();
         }
 
         private void createTimer_Tick_1(object sender, EventArgs e)
@@ -46,19 +46,19 @@ namespace _8.gyak
 
         private void conveyorTimer_Tick_1(object sender, EventArgs e)
         {
+            var maxPosition = 0;
             foreach (var toy in _toys)
             {
                 toy.MoveToy();
+                if (toy.Left > maxPosition)
+                    maxPosition = toy.Left;
             }
 
-            if (_toys.Count() >= 1)
+            if (maxPosition > 1000)
             {
-                if (_toys[0].Left > 500)
-                {
-                    var oldestToy = _toys[0];
-                    mainPanel.Controls.Remove(oldestToy);
-                    _toys.Remove(oldestToy);
-                }
+                var oldestToy = _toys[0];
+                mainPanel.Controls.Remove(oldestToy);
+                _toys.Remove(oldestToy);
             }
         }
 
