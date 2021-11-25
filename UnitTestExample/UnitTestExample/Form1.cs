@@ -33,7 +33,7 @@ namespace UnitTestExample
         public Form1()
         {
             InitializeComponent();
-            PasswordCheckPassed = true;
+            passwordCheckPassed = true;
             dgwAccounts.DataSource = _controller.AccountManager.Accounts;         
         }
 
