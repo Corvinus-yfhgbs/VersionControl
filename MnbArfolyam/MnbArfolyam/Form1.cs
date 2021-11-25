@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,29 +24,12 @@ namespace MnbArfolyam
             InitializeComponent();
 
             GetCurrs();
-
+            
             var start = dateTimePicker1.Value.ToString();
             var end = dateTimePicker2.Value.ToString();
             var value = comboBox1.Text;
-            RefreshData(start, end, value);
-
-            dataGridView1.DataSource = _rateDatas;
             comboBox1.DataSource = _currs;
-           
-            chartRateData.DataSource = _rateDatas;
-            var series = chartRateData.Series[0];
-            series.ChartType = SeriesChartType.Line;
-            series.XValueMember = "Date";
-            series.YValueMembers = "Value";
-            series.BorderWidth = 2;
-
-            var legend = chartRateData.Legends[0];
-            legend.Enabled = false;
-
-            var chartArea = chartRateData.ChartAreas[0];
-            chartArea.AxisX.MajorGrid.Enabled = false;
-            chartArea.AxisY.MajorGrid.Enabled = false;
-            chartArea.AxisY.IsStartedFromZero = false;
+            RefreshData(start, end, value);
 
         }
         
@@ -78,7 +62,17 @@ namespace MnbArfolyam
         public void RefreshData(string start, string end, string value)
         {
             _rateDatas.Clear();
-            ReadXML(GetExchangeRates(start, end, value));
+            string xmlString = "";
+            using (var sr = new StreamReader("Entities/MnbServiceResult.xml", Encoding.Default))
+            {
+                while (!sr.EndOfStream)
+                {
+                    xmlString += sr.ReadLine();
+                }
+            }
+            ReadXML(xmlString);
+                //ReadXML(GetExchangeRates(start, end, value));
+                dataGridView1.DataSource = _rateDatas;
 
             chartRateData.DataSource = _rateDatas;
             var series = chartRateData.Series[0];
